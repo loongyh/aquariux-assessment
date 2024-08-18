@@ -16,8 +16,8 @@ Design the table structure based on the understanding of the questions.
 
 ## Task
 1. Price aggregation from the source below:\
-**Binance:** `https://api.binance.com/api/v3/ticker/bookTicker`\
-**Houbi:** `https://api.huobi.pro/market/tickers`\
+**Binance:** https://api.binance.com/api/v3/ticker/bookTicker\
+**Houbi:** https://api.huobi.pro/market/tickers\
 Create a 10 seconds interval scheduler to retrieve the pricing from the source above and store the best pricing into the database.\
 *Hints: Bid Price use for SELL order, Ask Price use for BUY order*
 
@@ -29,3 +29,11 @@ Create a 10 seconds interval scheduler to retrieve the pricing from the source a
 4. Create an api to retrieve the user’s crypto currencies wallet balance.
 
 5. Create an api to retrieve the user trading history.
+
+## Steps to run
+1. Clone repo to local dir.
+2. `mvn clean install -DskipTests`
+3. `mvn spring-boot:run`
+4. REST endpoint served at http://localhost:8080/crypto
+5. h2-console served at http://localhost:8080/h2-console
+6. Swagger UI served at http://localhost:8090/swagger-ui/index.html
