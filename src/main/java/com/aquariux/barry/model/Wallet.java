@@ -1,7 +1,5 @@
 package com.aquariux.barry.model;
 
-import java.util.List;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,8 +25,6 @@ public class Wallet {
     @SequenceGenerator(name = "wallet_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "wallet_seq")
     private long id;
-
-    private List<String> currencies;
 
     private long time_created;
 

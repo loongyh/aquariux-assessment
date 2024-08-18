@@ -2,7 +2,6 @@ package com.aquariux.barry.service.impl;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +33,6 @@ public class HuobiService implements IFetchPricesService {
                 .ask(data.ask().multiply(data.askSize()))
                 .askQty(data.askSize())
                 .askSource(Source.HUOBI)
-            .build()).collect(Collectors.toList());
+            .build()).toList();
     }
 }

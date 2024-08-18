@@ -2,7 +2,6 @@ package com.aquariux.barry.service.impl;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +33,6 @@ public class BinanceService implements IFetchPricesService {
                 .ask(data.askPrice())
                 .askQty(data.askQty())
                 .askSource(Source.BINANCE)
-            .build()).collect(Collectors.toList());
+            .build()).toList();
     }
 }

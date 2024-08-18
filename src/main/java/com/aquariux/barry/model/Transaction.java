@@ -23,7 +23,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "transactions")
-public class Transactions {
+public class Transaction {
 
     @Id
     @SequenceGenerator(name = "transactions_seq", allocationSize = 1)
@@ -39,6 +39,8 @@ public class Transactions {
 
     @Column(precision = 30, scale = 8)
     private BigDecimal amount;
+
+    private String memo;
 
     private long time_created;
 }

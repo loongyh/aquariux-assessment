@@ -2,7 +2,6 @@ package com.aquariux.barry;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +36,7 @@ public class BarryApplication {
     private void updatePricesTask() {
         List<Prices> allPrices = fetchPricesServices.stream()
             .map(fpSvc -> fpSvc.fetchPrices(SYMBOLS))
-            .flatMap(List::stream).collect(Collectors.toList());
+            .flatMap(List::stream).toList();
         
         pricesRepository.saveAll(Arrays.stream(SYMBOLS).map(symbol -> allPrices.stream()
             .filter(prices-> symbol.equalsIgnoreCase(prices.getSymbol()))
@@ -53,7 +52,7 @@ public class BarryApplication {
                     bestPrices.setBidSource(prices.getBidSource());
                 }
                 return bestPrices;
-        })).collect(Collectors.toList()));
+        })).toList());
     }
 
 }
