@@ -1,0 +1,25 @@
+server:
+  port: 8090
+
+spring:
+  application:
+    name: barry
+  datasource:
+    url: jdbc:h2:mem:application
+    driverClassName: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+  h2:
+    console.enabled: true
+
+springdoc:
+  paths-to-match: /**
+  packages-to-scan: com.aquariux.barry
+  api-docs:
+    path: /swagger
+
+swagger:
+  app-description: API Documentation for crypto trading system
+  app-version: 1.0.0
+  app-name: barry
