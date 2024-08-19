@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aquariux.barry.exceptions.AmountExceededException;
+import com.aquariux.barry.exceptions.CurrencyNotFoundException;
 import com.aquariux.barry.exceptions.SymbolNotFoundException;
 import com.aquariux.barry.exceptions.WalletNotFoundException;
 import com.aquariux.barry.model.Prices;
@@ -49,15 +51,17 @@ public class CryptoController {
     @GetMapping("/prices/{symbol}")
     public ResponseEntity<Prices> getPrices(@PathVariable String symbol) throws SymbolNotFoundException {
         log.info("Getting prices for {}", symbol);
-        return ResponseEntity.ok(cryptoService.getPrices(symbol));
+        return ResponseEntity.ok(cryptoService.getPrices(symbol.trim().toUpperCase()));
     }
 
     @Operation(summary = "Perform a trade based on the latest best aggregated price")
     @PostMapping("/trade")
-    ResponseEntity<Transaction> doTrade(@RequestBody @Valid TransactionCreationRequest request) {
+    ResponseEntity<List<Transaction>> doTrade(@RequestBody @Valid TransactionCreationRequest request)
+        throws AmountExceededException, CurrencyNotFoundException, SymbolNotFoundException, WalletNotFoundException {
         log.info("Attempting to convert from {} to {} with amount {} for wallet {}",
-            request.getFromCurrency(), request.getToCurrency(), request.getAmount(), request.getWalletId());
-        return null;
+            request.getFromCurrency().trim().toUpperCase(), request.getToCurrency().trim().toUpperCase(), request.getAmount(), request.getWalletId());
+        return ResponseEntity.ok(cryptoService.doCurrencyConversion(request.getWalletId(), request.getFromCurrency(),
+            request.getToCurrency(), request.getAmount()));
     }
 
     @Operation(summary = "Get balances for wallet id")

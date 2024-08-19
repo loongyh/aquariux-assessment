@@ -26,7 +26,7 @@ import lombok.Setter;
 public class Transaction {
 
     @Id
-    @SequenceGenerator(name = "transactions_seq", allocationSize = 1)
+    @SequenceGenerator(name = "transactions_seq", allocationSize = 1, initialValue = 2)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transactions_seq")
     private long id;
 

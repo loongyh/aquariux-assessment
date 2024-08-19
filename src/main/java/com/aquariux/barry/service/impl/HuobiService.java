@@ -19,12 +19,12 @@ import com.aquariux.barry.utils.Constants.Source;
 public class HuobiService implements IFetchPricesService {
 
     @Override
-    public List<Prices> fetchPrices(String[] symbols) {
-        log.info("Fetching prices for {} from {}", Arrays.toString(symbols), Source.HUOBI);
+    public List<Prices> fetchPrices(List<String> symbols) {
+        log.info("Fetching prices for {} from {}", symbols, Source.HUOBI);
         RestTemplate restTemplate = new RestTemplate();
 
         return Arrays.stream(restTemplate.getForObject(Source.HUOBI_URL, Huobi.class).data())
-            .filter(data -> Arrays.stream(symbols).anyMatch(data.symbol()::equalsIgnoreCase))
+            .filter(data -> symbols.stream().anyMatch(data.symbol()::equalsIgnoreCase))
             .map(data -> Prices.builder()
                 .symbol(data.symbol().toUpperCase())
                 .bid(data.bid())

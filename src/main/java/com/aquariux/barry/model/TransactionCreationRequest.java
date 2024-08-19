@@ -28,4 +28,7 @@ public class TransactionCreationRequest {
     @NotNull(message = "Amount is required")
     private BigDecimal amount;
 
+    @Builder.Default
+    private String memo = "Transaction";
+
 }

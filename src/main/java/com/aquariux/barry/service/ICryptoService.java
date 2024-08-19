@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
+import com.aquariux.barry.exceptions.AmountExceededException;
 import com.aquariux.barry.exceptions.CurrencyNotFoundException;
 import com.aquariux.barry.exceptions.SymbolNotFoundException;
 import com.aquariux.barry.exceptions.WalletNotFoundException;
@@ -15,6 +16,6 @@ public interface ICryptoService {
     Prices getPrices(String symbol) throws SymbolNotFoundException;
     Map<String, BigDecimal> getBalances(long walletId) throws WalletNotFoundException;
     List<Transaction> getTransactions(long walletId) throws WalletNotFoundException;
-    Transaction doTrade(long walletId, String fromCurrency, String toCurrency, BigDecimal amount, String memo)
-        throws WalletNotFoundException, CurrencyNotFoundException;
+    List<Transaction> doCurrencyConversion(long walletId, String fromCurrency, String toCurrency, BigDecimal amount)
+        throws AmountExceededException, CurrencyNotFoundException, SymbolNotFoundException, WalletNotFoundException;
 }

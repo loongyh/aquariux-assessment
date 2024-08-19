@@ -1,6 +1,5 @@
 package com.aquariux.barry;
 
-import java.util.Arrays;
 import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
@@ -13,14 +12,12 @@ import org.springframework.scheduling.annotation.Scheduled;
 import com.aquariux.barry.model.Prices;
 import com.aquariux.barry.repository.PricesRepository;
 import com.aquariux.barry.service.IFetchPricesService;
-import com.aquariux.barry.utils.Constants.Symbol;
+import com.aquariux.barry.utils.Constants;
 
 @SpringBootApplication
 @Slf4j
 @EnableScheduling
 public class BarryApplication {
-
-    public static final String[] SYMBOLS = {Symbol.ETHUSDT, Symbol.BTCUSDT};
 
     @Autowired
     private PricesRepository pricesRepository;
@@ -35,10 +32,10 @@ public class BarryApplication {
     @Scheduled(fixedDelay = 10000)
     private void updatePricesTask() {
         List<Prices> allPrices = fetchPricesServices.stream()
-            .map(fpSvc -> fpSvc.fetchPrices(SYMBOLS))
+            .map(fpSvc -> fpSvc.fetchPrices(Constants.Symbol.getSymbols()))
             .flatMap(List::stream).toList();
         
-        pricesRepository.saveAll(Arrays.stream(SYMBOLS).map(symbol -> allPrices.stream()
+        pricesRepository.saveAll(Constants.Symbol.getSymbols().stream().map(symbol -> allPrices.stream()
             .filter(prices-> symbol.equalsIgnoreCase(prices.getSymbol()))
             .reduce(Prices.builder().symbol(symbol).build(), (bestPrices, prices) -> {
                 if (prices.getAsk().compareTo(bestPrices.getAsk()) < 0) {

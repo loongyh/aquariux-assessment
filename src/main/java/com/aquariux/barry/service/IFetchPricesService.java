@@ -5,5 +5,5 @@ import java.util.List;
 import com.aquariux.barry.model.Prices;
 
 public interface IFetchPricesService {
-    List<Prices> fetchPrices(String[] symbols);
+    List<Prices> fetchPrices(List<String> symbols);
 }

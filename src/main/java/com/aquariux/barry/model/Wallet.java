@@ -26,6 +26,10 @@ public class Wallet {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "wallet_seq")
     private long id;
 
+    private String name;
+
+    private String email;
+
     private long time_created;
 
     private long time_updated;

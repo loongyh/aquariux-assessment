@@ -10,9 +10,30 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class CryptoAdvice {
 
+    @ExceptionHandler(AmountExceededException.class)
+    public final ResponseEntity<String> handleAmountExceededException(AmountExceededException exception) {
+        log.warn(exception.toString());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.toString());
+    }
+
+    @ExceptionHandler(CurrencyNotFoundException.class)
+    public final ResponseEntity<String> handleCurrencyNotFoundException(CurrencyNotFoundException exception) {
+        log.warn(exception.toString());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.toString());
+    }
+
     @ExceptionHandler(SymbolNotFoundException.class)
     public final ResponseEntity<String> handleSymbolNotFoundException(SymbolNotFoundException exception) {
-        log.warn("Symbol not found: {}", exception.getSymbol());
+        log.warn(exception.toString());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.toString());
+    }
+
+    @ExceptionHandler(WalletNotFoundException.class)
+    public final ResponseEntity<String> handleWalletNotFoundException(WalletNotFoundException exception) {
+        log.warn(exception.toString());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.toString());
     }
