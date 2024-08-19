@@ -1,5 +1,7 @@
 package com.aquariux.barry.model;
 
+import java.time.Instant;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,7 +32,8 @@ public class Wallet {
 
     private String email;
 
-    private long time_created;
+    @Builder.Default
+    private long timeCreated = Instant.now().getEpochSecond();
 
-    private long time_updated;
+    private long timeUpdated;
 }

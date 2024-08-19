@@ -1,6 +1,7 @@
 package com.aquariux.barry.model;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -42,5 +43,6 @@ public class Transaction {
 
     private String memo;
 
-    private long time_created;
+    @Builder.Default
+    private long timeCreated = Instant.now().getEpochSecond();
 }
